@@ -63,7 +63,7 @@ int			num_sfx;
 
 sfx_t		*ambient_sfx[NUM_AMBIENTS];
 
-int 		desired_speed = 11025;
+int 		desired_speed = 48000; //11025;
 int 		desired_bits = 16;
 
 int sound_started=0;
