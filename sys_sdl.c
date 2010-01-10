@@ -1,3 +1,5 @@
+/* -*- Mode: C; tab-width: 4 -*- */ 
+
 #include <unistd.h>
 #include <signal.h>
 #include <stdlib.h>
@@ -379,7 +381,7 @@ int main (int c, char **v)
 //	signal(SIGFPE, floating_point_exception_handler);
 	signal(SIGFPE, SIG_IGN);
 
-	parms.memsize = 8*1024*1024;
+	parms.memsize = 32*1024*1024;
 	parms.membase = malloc (parms.memsize);
 	parms.basedir = basedir;
 	parms.cachedir = cachedir;
