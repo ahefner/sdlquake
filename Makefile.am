@@ -33,7 +33,6 @@ sdlquake_SOURCES =		\
 	crc.h			\
 	cvar.c			\
 	cvar.h			\
-	d_copy.S		\
 	d_edge.c		\
 	d_fill.c		\
 	d_iface.h		\
