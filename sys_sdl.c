@@ -384,7 +384,8 @@ int main (int c, char **v)
 	parms.memsize = 32*1024*1024;
 	parms.membase = malloc (parms.memsize);
 	parms.basedir = basedir;
-	parms.cachedir = cachedir;
+    // Disable cache, else it looks in the cache for config.cfg.
+	parms.cachedir = NULL;
 
 	COM_InitArgv(c, v);
 	parms.argc = com_argc;
