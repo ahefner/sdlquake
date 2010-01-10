@@ -911,6 +911,7 @@ void Host_Init (quakeparms_t *parms)
 	}
 
 	Cbuf_InsertText ("exec quake.rc\n");
+        IN_MLookDown();
 
 	Hunk_AllocName (0, "-HOST_HUNKLEVEL-");
 	host_hunklevel = Hunk_LowMark ();
