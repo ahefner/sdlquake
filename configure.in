@@ -14,11 +14,13 @@ AC_PROG_MAKE_SET
 AC_PROG_CC
 AC_PROG_INSTALL
 
+AM_PROG_AS
+
 dnl The alpha architecture needs special flags for binary portability
 AC_CANONICAL_TARGET
 case "$target" in
     i686-*-linux*)
-        CFLAGS="-g -mpentiumpro -O6 -ffast-math -funroll-loops -fomit-frame-pointer -fexpensive-optimizations"
+        CFLAGS="-g  -O6 -ffast-math -funroll-loops -fomit-frame-pointer -fexpensive-optimizations"
         #CFLAGS="-g -mpentiumpro -O6 -ffast-math -funroll-loops -fexpensive-optimizations"
         ;;
     alpha*-*-linux*)
