@@ -91,9 +91,14 @@ void    VID_Init (unsigned char *palette)
     }
 
     // Set video width, height and flags
-    flags = (SDL_SWSURFACE|SDL_HWPALETTE);
+    flags = (SDL_SWSURFACE|SDL_HWPALETTE|SDL_FULLSCREEN);
+
     if ( COM_CheckParm ("-fullscreen") )
         flags |= SDL_FULLSCREEN;
+
+    if ( COM_CheckParm ("-window") ) {
+        flags &= ~SDL_FULLSCREEN;
+    }
 
     // Initialize display 
     if (!(screen = SDL_SetVideoMode(vid.width, vid.height, 8, flags)))
