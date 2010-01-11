@@ -248,7 +248,8 @@ int UDP_Read (int socket, byte *buf, int len, struct qsockaddr *addr)
 	int addrlen = sizeof (struct qsockaddr);
 	int ret;
 
-	ret = recvfrom (socket, buf, len, 0, (struct sockaddr *)addr, &addrlen);
+	ret = recvfrom (socket, buf, len, MSG_DONTWAIT, 
+                        (struct sockaddr *)addr, &addrlen);
 	if (ret == -1 && (errno == EWOULDBLOCK || errno == ECONNREFUSED))
 		return 0;
 	return ret;
@@ -295,7 +296,8 @@ int UDP_Write (int socket, byte *buf, int len, struct qsockaddr *addr)
 {
 	int ret;
 
-	ret = sendto (socket, buf, len, 0, (struct sockaddr *)addr, sizeof(struct qsockaddr));
+	ret = sendto (socket, buf, len, MSG_DONTWAIT,
+                      (struct sockaddr *)addr, sizeof(struct qsockaddr));
 	if (ret == -1 && errno == EWOULDBLOCK)
 		return 0;
 	return ret;
