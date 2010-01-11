@@ -66,29 +66,29 @@ void    VID_Init (unsigned char *palette)
     vid.maxwarpheight = WARP_HEIGHT;
 
     // check for command-line window size
-	if ((pnum=COM_CheckParm("-winsize")))
-	{
-		if (pnum >= com_argc-2)
-			Sys_Error("VID: -winsize <width> <height>\n");
-		vid.width = Q_atoi(com_argv[pnum+1]);
-		vid.height = Q_atoi(com_argv[pnum+2]);
-		if (!vid.width || !vid.height)
-			Sys_Error("VID: Bad window width/height\n");
-	}
-	if ((pnum=COM_CheckParm("-width"))) {
-		if (pnum >= com_argc-1)
-			Sys_Error("VID: -width <width>\n");
-		vid.width = Q_atoi(com_argv[pnum+1]);
-		if (!vid.width)
-			Sys_Error("VID: Bad window width\n");
-	}
-	if ((pnum=COM_CheckParm("-height"))) {
-		if (pnum >= com_argc-1)
-			Sys_Error("VID: -height <height>\n");
-		vid.height = Q_atoi(com_argv[pnum+1]);
-		if (!vid.height)
-			Sys_Error("VID: Bad window height\n");
-	}
+    if ((pnum=COM_CheckParm("-winsize")))
+    {
+        if (pnum >= com_argc-2)
+            Sys_Error("VID: -winsize <width> <height>\n");
+        vid.width = Q_atoi(com_argv[pnum+1]);
+        vid.height = Q_atoi(com_argv[pnum+2]);
+        if (!vid.width || !vid.height)
+            Sys_Error("VID: Bad window width/height\n");
+    }
+    if ((pnum=COM_CheckParm("-width"))) {
+        if (pnum >= com_argc-1)
+            Sys_Error("VID: -width <width>\n");
+        vid.width = Q_atoi(com_argv[pnum+1]);
+        if (!vid.width)
+            Sys_Error("VID: Bad window width\n");
+    }
+    if ((pnum=COM_CheckParm("-height"))) {
+        if (pnum >= com_argc-1)
+            Sys_Error("VID: -height <height>\n");
+        vid.height = Q_atoi(com_argv[pnum+1]);
+        if (!vid.height)
+            Sys_Error("VID: Bad window height\n");
+    }
 
     // Set video width, height and flags
     flags = (SDL_SWSURFACE|SDL_HWPALETTE);
