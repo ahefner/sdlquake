@@ -2,6 +2,7 @@
 bin_PROGRAMS = sdlquake
 
 sdlquake_LDADD = @MATHLIB@ @INETLIB@
+sdlquake_CFLAGS = @QUAKE_CFLAGS@ $(CFLAGS)
 
 sdlquake_SOURCES =		\
 	adivtab.h		\
