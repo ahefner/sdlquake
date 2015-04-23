@@ -2,7 +2,6 @@
 bin_PROGRAMS = sdlquake
 
 sdlquake_LDADD = @MATHLIB@ @INETLIB@
-sdlquake_CFLAGS = @QUAKE_CFLAGS@ $(CFLAGS)
 
 sdlquake_SOURCES =		\
 	adivtab.h		\
@@ -248,6 +247,7 @@ GL_SRCS =			\
 	glquake2.h
 
 EXTRA_DIST =			\
+	README			\
 	README.SDL		\
 	3dfx.txt		\
 	Makefile.Solaris	\

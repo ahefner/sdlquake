@@ -7,7 +7,7 @@ AC_CONFIG_SRCDIR([README.SDL])
 AC_CONFIG_HEADERS([config.h])
 
 dnl Detect the canonical target build environment
-AC_CANONICAL_TARGET
+dnl AC_CANONICAL_TARGET
 AC_CANONICAL_HOST
 
 dnl Setup for automake
@@ -18,6 +18,7 @@ AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AM_PROG_AS
+PKG_PROG_PKG_CONFIG
 
 # Checks for libraries.
 
@@ -36,18 +37,25 @@ AC_FUNC_MALLOC
 AC_FUNC_MMAP
 AC_CHECK_FUNCS([atexit floor gethostbyaddr gethostbyname gethostname gethrtime getpagesize gettimeofday inet_ntoa memset mkdir munmap pow select socket sqrt strcasecmp strchr strerror strstr])
 
-QUAKE_CFLAGS='-g -O6'
+AS_IF([test "$GCC" = "yes"], [CFLAGS="-g -O6"], [])
 
 dnl The alpha architecture needs special flags for binary portability
 AS_CASE(
-	[$target],
-	[alpha*-*-linux*],[QUAKE_CFLAGS="$QUAKE_CFLAGS -mcpu=ev4 -Wa,-mall"],
-	[*-linux*],[QUAKE_CFLAGS="$QUAKE_CFLAGS -ffast-math -funroll-loops -fomit-frame-pointer -fexpensive-optimizations"],
-	[])
+	[$host],
+	[alpha*-*-linux*],[CFLAGS="$CFLAGS -mcpu=ev4 -Wa,-mall"],
+	[x86_64-*-linux*],[CHECK_M32="yes" CFLAGS="$CFLAGS -ffast-math -funroll-loops -fomit-frame-pointer -fexpensive-optimizations"],
+	[*-linux*],[CFLAGS="$CFLAGS -ffast-math -funroll-loops -fomit-frame-pointer -fexpensive-optimizations"],
+	AC_MSG_ERROR(["Unrecognized platform $host."]))
+
+AS_IF([test "$CHECK_M32" = "yes"],
+	AX_CHECK_COMPILE_FLAG(
+		[-m32], 
+		[CFLAGS="-m32 $CFLAGS" CCASFLAGS="-m32 $CCASFLAGS"], 
+		AC_MSG_ERROR(["$CC does not build 32-bit programs correctly. See your distribution's documentation on cross-compiling to i386."])))
 
 dnl Figure out which math and networking libraries to use
 AS_CASE(
-	[$target],
+	[$host],
     	[*-*-mingw32*],[MATHLIB=''; INETLIB='-lwsock32'],
 	[*-*-beos*],[MATHLIB=''; INETLIB=''],
 	[MATHLIB='-lm'; INETLIB=''])
@@ -55,14 +63,14 @@ AC_SUBST(MATHLIB)
 AC_SUBST(INETLIB)
 
 dnl Check for SDL
-AM_PATH_SDL(
-	[1.2.0],
-	[QUAKE_CFLAGS="$QUAKE_CFLAGS $SDL_CFLAGS"; CPPFLAGS="$CPPFLAGS -DSDL"; LIBS="$LIBS $SDL_LIBS"],
-	AC_MSG_ERROR([*** SDL version $SDL_VERSION not found!]))
+PKG_CHECK_MODULES([SDL],
+	[sdl >= 1.2.0],
+	[CFLAGS="$CFLAGS $SDL_CFLAGS"; CPPFLAGS="$CPPFLAGS -DSDL"; LIBS="$LIBS $SDL_LIBS"],
+	AC_MSG_ERROR([*** SDL version 1.2 not found!]))
 
 dnl Set up the icon object file, for Mingw32
 AS_CASE(
-	[$target],
+	[$host],
 	[*-*-mingw32*],
 	[cp ico_o ico.o; ICONOBJ="ico.o"],
 	[ICONOBJ=""])
@@ -74,14 +82,11 @@ AC_ARG_ENABLE(
 	AS_HELP_STRING(
 		[--enable-asm],
 		[enable i686 assembly routines (default=no)]))
-AS_IF([test "x$enable_asm" = "xyes"], 
+AS_IF([test "$enable_asm" = yes], 
 	AC_DEFINE([USE_ASM],[],[Define to use i686 assembly sources]),
 	[])
 
 CPPFLAGS="$CPPFLAGS -DELF"
-dnl AC_DEFINE([ELF],[],[Define to build ELF objects])
-
-AC_SUBST([QUAKE_CFLAGS])
 
 # Finally create all the generated files
 AC_CONFIG_FILES([Makefile])
