@@ -47,8 +47,6 @@ sdlquake_SOURCES =		\
 	d_sprite.c		\
 	d_surf.c		\
 	d_zpoint.c		\
-	dosasm.S		\
-	dosisms.h		\
 	draw.c			\
 	draw.h			\
 	host.c			\
@@ -102,7 +100,6 @@ sdlquake_SOURCES =		\
 	r_sprite.c		\
 	r_surf.c		\
 	r_vars.c		\
-	r_varsa.S		\
 	render.h		\
 	resource.h		\
 	sbar.c			\
@@ -135,7 +132,13 @@ sdlquake_SOURCES =		\
 	world.h			\
 	zone.c			\
 	zone.h			\
-	$(X86_SRCS) $(NONX86_SRCS)
+	$(MAYBE_X86_SRCS) $(NONX86_SRCS)
+
+if MAKE_ASM
+MAYBE_X86_SRCS = $(X86_SRCS)
+else
+MAYBE_X86_SRCS =
+endif
 
 X86_SRCS =			\
 	snd_mixa.S		\
@@ -152,6 +155,7 @@ X86_SRCS =			\
 	r_aliasa.S		\
 	r_drawa.S		\
 	r_edgea.S		\
+	r_varsa.S		\
 	surf16.S		\
 	surf8.S			\
 	worlda.S
@@ -171,6 +175,8 @@ NULL_SRCS =			\
 
 DOS_SRCS =			\
 	cd_audio.c		\
+	dosasm.S		\
+	dosisms.h		\
 	dos_v2.c		\
 	in_dos.c		\
 	mplib.c			\
@@ -247,6 +253,7 @@ GL_SRCS =			\
 	glquake2.h
 
 EXTRA_DIST =			\
+	README			\
 	README.SDL		\
 	3dfx.txt		\
 	Makefile.Solaris	\
@@ -285,7 +292,10 @@ EXTRA_DIST =			\
 	$(LNX_SRCS)		\
 	$(SUN_SRCS)		\
 	$(NEXT_SRCS)		\
-	$(GL_SRCS)
-
-dist-hook:
-	cp -rp data docs dxsdk gas2masm kit scitech $(distdir)/
+	$(GL_SRCS)		\
+	data			\
+	docs			\
+	dxsdk			\
+	gas2masm		\
+	kit			\
+	scitech
