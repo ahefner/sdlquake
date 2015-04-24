@@ -9,3 +9,4 @@ config.status
 stamp*
 .deps
 auto*
+sdlquake
