@@ -47,11 +47,11 @@ AS_CASE(
 	[*-linux*],[CFLAGS="$CFLAGS -ffast-math -funroll-loops -fomit-frame-pointer -fexpensive-optimizations"],
 	AC_MSG_ERROR(["Unrecognized platform $host."]))
 
-AS_IF([test "$CHECK_M32" = "yes"],
-	AX_CHECK_COMPILE_FLAG(
-		[-m32], 
-		[CFLAGS="-m32 $CFLAGS" CCASFLAGS="-m32 $CCASFLAGS"], 
-		AC_MSG_ERROR(["$CC does not build 32-bit programs correctly. See your distribution's documentation on cross-compiling to i386."])))
+#AS_IF([test "$CHECK_M32" = "yes"],
+#	AX_CHECK_COMPILE_FLAG(
+#		[-m32], 
+#		[CFLAGS="-m32 $CFLAGS" CCASFLAGS="-m32 $CCASFLAGS"], 
+#		AC_MSG_ERROR(["$CC does not build 32-bit programs correctly. See your distribution's documentation on cross-compiling to i386."])))
 
 dnl Figure out which math and networking libraries to use
 AS_CASE(
