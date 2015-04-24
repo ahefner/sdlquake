@@ -47,8 +47,6 @@ sdlquake_SOURCES =		\
 	d_sprite.c		\
 	d_surf.c		\
 	d_zpoint.c		\
-	dosasm.S		\
-	dosisms.h		\
 	draw.c			\
 	draw.h			\
 	host.c			\
@@ -177,6 +175,8 @@ NULL_SRCS =			\
 
 DOS_SRCS =			\
 	cd_audio.c		\
+	dosasm.S		\
+	dosisms.h		\
 	dos_v2.c		\
 	in_dos.c		\
 	mplib.c			\

@@ -623,6 +623,8 @@ ac_header_list=
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
+MAKE_ASM_FALSE
+MAKE_ASM_TRUE
 ICONOBJ
 SDL_LIBS
 SDL_CFLAGS
@@ -5710,7 +5712,15 @@ if test "${enable_asm+set}" = set; then :
   enableval=$enable_asm;
 fi
 
-if test "$enable_asm" = yes; then :
+ if test "$enable_asm" = yes; then
+  MAKE_ASM_TRUE=
+  MAKE_ASM_FALSE='#'
+else
+  MAKE_ASM_TRUE='#'
+  MAKE_ASM_FALSE=
+fi
+
+if test -z "$MAKE_ASM_TRUE"; then :
 
 $as_echo "#define USE_ASM /**/" >>confdefs.h
 
@@ -5856,6 +5866,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${am__fastdepCCAS_TRUE}" && test -z "${am__fastdepCCAS_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCCAS\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${MAKE_ASM_TRUE}" && test -z "${MAKE_ASM_FALSE}"; then
+  as_fn_error $? "conditional \"MAKE_ASM\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 
