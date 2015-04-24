@@ -102,7 +102,6 @@ sdlquake_SOURCES =		\
 	r_sprite.c		\
 	r_surf.c		\
 	r_vars.c		\
-	r_varsa.S		\
 	render.h		\
 	resource.h		\
 	sbar.c			\
@@ -135,7 +134,13 @@ sdlquake_SOURCES =		\
 	world.h			\
 	zone.c			\
 	zone.h			\
-	$(X86_SRCS) $(NONX86_SRCS)
+	$(MAYBE_X86_SRCS) $(NONX86_SRCS)
+
+if MAKE_ASM
+MAYBE_X86_SRCS = $(X86_SRCS)
+else
+MAYBE_X86_SRCS =
+endif
 
 X86_SRCS =			\
 	snd_mixa.S		\
@@ -152,6 +157,7 @@ X86_SRCS =			\
 	r_aliasa.S		\
 	r_drawa.S		\
 	r_edgea.S		\
+	r_varsa.S		\
 	surf16.S		\
 	surf8.S			\
 	worlda.S
@@ -286,7 +292,10 @@ EXTRA_DIST =			\
 	$(LNX_SRCS)		\
 	$(SUN_SRCS)		\
 	$(NEXT_SRCS)		\
-	$(GL_SRCS)
-
-dist-hook:
-	cp -rp data docs dxsdk gas2masm kit scitech $(distdir)/
+	$(GL_SRCS)		\
+	data			\
+	docs			\
+	dxsdk			\
+	gas2masm		\
+	kit			\
+	scitech

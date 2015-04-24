@@ -82,9 +82,9 @@ AC_ARG_ENABLE(
 	AS_HELP_STRING(
 		[--enable-asm],
 		[enable i686 assembly routines (default=no)]))
-AS_IF([test "$enable_asm" = yes], 
-	AC_DEFINE([USE_ASM],[],[Define to use i686 assembly sources]),
-	[])
+AM_CONDITIONAL([MAKE_ASM], [test "$enable_asm" = yes])
+AM_COND_IF([MAKE_ASM], 
+	AC_DEFINE([USE_ASM],[],[Define to use i686 assembly sources]))
 
 CPPFLAGS="$CPPFLAGS -DELF"
 
