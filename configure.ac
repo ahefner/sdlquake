@@ -37,7 +37,7 @@ AC_FUNC_MALLOC
 AC_FUNC_MMAP
 AC_CHECK_FUNCS([atexit floor gethostbyaddr gethostbyname gethostname gethrtime getpagesize gettimeofday inet_ntoa memset mkdir munmap pow select socket sqrt strcasecmp strchr strerror strstr])
 
-AS_IF([test "$GCC" = "yes"], [CFLAGS="-g -O6"], [])
+#AS_IF([test "$GCC" = "yes"], [CFLAGS="-g -O6"], [])
 
 dnl The alpha architecture needs special flags for binary portability
 AS_CASE(
