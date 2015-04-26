@@ -9,3 +9,8 @@ config.status
 stamp*
 .deps
 sdlquake
+.*
+*.kdev*
+autom4*
+TAGS
+configure
