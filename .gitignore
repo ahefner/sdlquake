@@ -8,5 +8,4 @@ config.log
 config.status
 stamp*
 .deps
-auto*
 sdlquake
